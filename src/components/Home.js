@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
 import { Layout, Menu, Icon } from 'antd';
 
@@ -19,8 +20,7 @@ class Home extends Component {
             <div className='home-title'>后台管理系统</div>
             <Menu theme="dark" defaultSelectedKeys={[]} mode="inline">
             <Menu.Item key="1">
-              <Icon type="pie-chart" />
-              <span>Option 1</span>
+              <Link to="/page1"><Icon type="pie-chart" /><span>Option 1</span></Link>
             </Menu.Item>
             <Menu.Item key="2">
               <Icon type="desktop" />
