@@ -60,7 +60,7 @@ class Home extends Component {
           <Layout>
             <Header style={{color: '#fff'}}>Header</Header>
             <Content style={{background: '#fff',margin: '10px'}}>
-              首页
+              首页1
             </Content>
         </Layout>
         </Layout>
