@@ -1,16 +1,40 @@
 import React, { Component } from 'react';
-import {Link } from 'react-router-dom';
+// import {Link } from 'react-router-dom';
+import MenuConfig from '../config/menuConfig';
 import DocumentTitle from 'react-document-title';
 import { Layout, Menu, Icon } from 'antd';
 
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
+
 class Home extends Component {
-  state = {
-    collapsed: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      collapsed: false
+    }  
+  }
+  componentWillMount(){
+    const menuTreeNode = this.renderMenu(MenuConfig);
+    this.setState({
+      menuTreeNode
+    })
+  }
   onCollapse = collapsed => {
     this.setState({collapsed})
+  }
+  //菜单渲染
+  renderMenu = (data)=>{
+    return data.map((item)=>{
+      if(item.children){
+        return (
+        <SubMenu title={<span><Icon type={item.type} /><span>{item.title}</span></span>} key={item.key} >
+            {this.renderMenu(item.children)}
+          </SubMenu>
+        )
+      }
+      return <Menu.Item key={item.key}><Icon type={item.type} />{item.title}</Menu.Item>
+    })
   }
   render() {
     return (
@@ -19,43 +43,8 @@ class Home extends Component {
           <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
             <div className='home-title'>后台管理系统</div>
             <Menu theme="dark" defaultSelectedKeys={[]} mode="inline">
-            <Menu.Item key="1">
-              <Link to="/page1"><Icon type="pie-chart" /><span>Option 1</span></Link>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <Icon type="desktop" />
-              <span>Option 2</span>
-            </Menu.Item>
-            <SubMenu
-              key="sub1"
-              title={
-                <span>
-                  <Icon type="user" />
-                  <span>User</span>
-                </span>
-              }
-            >
-              <Menu.Item key="3">Tom</Menu.Item>
-              <Menu.Item key="4">Bill</Menu.Item>
-              <Menu.Item key="5">Alex</Menu.Item>
-            </SubMenu>
-            <SubMenu
-              key="sub2"
-              title={
-                <span>
-                  <Icon type="team" />
-                  <span>Team</span>
-                </span>
-              }
-            >
-              <Menu.Item key="6">Team 1</Menu.Item>
-              <Menu.Item key="8">Team 2</Menu.Item>
-            </SubMenu>
-            <Menu.Item key="9">
-              <Icon type="file" />
-              <span>File</span>
-            </Menu.Item>
-          </Menu>
+              {this.state.menuTreeNode}
+            </Menu>
           </Sider>
           <Layout>
             <Header style={{color: '#fff'}}>Header</Header>
