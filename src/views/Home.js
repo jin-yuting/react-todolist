@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 // import {Link } from 'react-router-dom';
 import MenuConfig from '../config/menuConfig';
+import Head from './Head';
 import DocumentTitle from 'react-document-title';
 import { Layout, Menu, Icon } from 'antd';
 
-const { Header, Sider, Content } = Layout;
+const { Sider, Content } = Layout;
 const { SubMenu } = Menu;
 
 class Home extends Component {
@@ -47,7 +48,7 @@ class Home extends Component {
             </Menu>
           </Sider>
           <Layout>
-            <Header style={{color: '#fff'}}>Header</Header>
+            <Head />
             <Content style={{background: '#fff',margin: '10px'}}>
               首页1
             </Content>
