@@ -50,7 +50,24 @@ class Home extends Component {
           <Layout>
             <Head />
             <Content style={{background: '#fff',margin: '10px'}}>
-              首页1
+              单纯的redux如何使用
+              <div>1.引入 import screateStore from 'redux'</div>
+
+              <div>2.创建一个reducer函数，用于执行状态更新</div>
+              <div>reducer(state,action) 返回一个新对象</div>
+              
+    {/* <div>function(state,action){
+        return {
+          name: '大山',
+          age:'28' 
+        }
+      }</div> */}
+      <div>3.创建store let store = createStore(reducer)</div>
+
+      <div>4.当需要读取store中的state时，通过getState来调用</div>
+      <div>let store = store.getState()</div>
+      <div>5. 用dispatcher来修改state</div>
+      {/* <div>store.dispatch({type:'123'})</div> */}
             </Content>
         </Layout>
         </Layout>
