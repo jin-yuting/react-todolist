@@ -15,11 +15,11 @@ const menuList = [
             },
             {
                 title: 'Bill',
-                key: '/admin/ui/ui/modals'
+                key: '/admin/ui/bill'
             },
             {
                 title: 'Alex',
-                key: '/admin/ui/ui/modals'
+                key: '/admin/ui/alex'
             }
         ]
     },
@@ -30,11 +30,11 @@ const menuList = [
         children: [
             {
                 title: 'Team 1',
-                key: '/admin/ui/buttons'
+                key: '/admin/team/team1'
             },
             {
                 title: 'Team 2',
-                key: '/admin/ui/ui/modals'
+                key: '/admin/team/team2'
             }
         ]
     }

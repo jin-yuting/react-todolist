@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import avater from '../style/images/b1.jfif';
+import avater from '../assets/images/b1.jfif';
 import { Menu, Layout } from 'antd';
 const { Header } = Layout;
 const { SubMenu } = Menu;

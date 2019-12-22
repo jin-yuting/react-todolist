@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-// import {Link } from 'react-router-dom';
+import {Link } from 'react-router-dom';
 import MenuConfig from '../config/menuConfig';
 import Head from './Head';
+import {connect} from 'react-redux';
+import Child1 from '../components/Child1';
+import Child2 from '../components/Child2';
 import DocumentTitle from 'react-document-title';
 import { Layout, Menu, Icon } from 'antd';
 
@@ -29,7 +32,7 @@ class Home extends Component {
     return data.map((item)=>{
       if(item.children){
         return (
-        <SubMenu title={<span><Icon type={item.type} /><span>{item.title}</span></span>} key={item.key} >
+        <SubMenu title={<span><Icon  type={item.type} /><span>{item.title}</span></span>} key={item.key} >
             {this.renderMenu(item.children)}
           </SubMenu>
         )
@@ -50,24 +53,22 @@ class Home extends Component {
           <Layout>
             <Head />
             <Content style={{background: '#fff',margin: '10px'}}>
+              姓名：{this.props.reducer1.name}
+              年龄：{this.props.reducer2.age}
+              <Child1 />
+              <Child2 />
               单纯的redux如何使用
               <div>1.引入 import screateStore from 'redux'</div>
-
+              <Link rel="stylesheet" to="/admin/ui/buttons" replace>要要去page界面</Link>
               <div>2.创建一个reducer函数，用于执行状态更新</div>
               <div>reducer(state,action) 返回一个新对象</div>
-              
-    {/* <div>function(state,action){
-        return {
-          name: '大山',
-          age:'28' 
-        }
-      }</div> */}
       <div>3.创建store let store = createStore(reducer)</div>
 
       <div>4.当需要读取store中的state时，通过getState来调用</div>
       <div>let store = store.getState()</div>
       <div>5. 用dispatcher来修改state</div>
-      {/* <div>store.dispatch({type:'123'})</div> */}
+      <div>
+      </div>
             </Content>
         </Layout>
         </Layout>
@@ -75,4 +76,8 @@ class Home extends Component {
     );
   }
 }
-export default Home;
+// export default Home;
+export default connect(
+  (state,props)=>{ return Object.assign({},props,state)},
+  {}
+)(Home);
