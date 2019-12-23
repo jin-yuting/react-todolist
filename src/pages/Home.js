@@ -32,13 +32,16 @@ class Home extends Component {
     return data.map((item)=>{
       if(item.children){
         return (
-        <SubMenu title={<span><Icon  type={item.type} /><span>{item.title}</span></span>} key={item.key} >
+          <SubMenu title={<span><Icon  type={item.type} /><span>{item.title}</span></span>} key={item.key} >
             {this.renderMenu(item.children)}
           </SubMenu>
-        )
+        );
       }
-      return <Menu.Item key={item.key}><Icon type={item.type} />{item.title}</Menu.Item>
-    })
+      return <Menu.Item key={item.key}>
+          {item.type && <Icon type={item.type} />}
+          <span>{item.title}</span>
+        </Menu.Item>
+    });
   }
   render() {
     return (
@@ -46,7 +49,7 @@ class Home extends Component {
         <Layout style={{ minHeight: '100vh' }}>
           <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
             <div className='home-title'>后台管理系统</div>
-            <Menu theme="dark" defaultSelectedKeys={[]} mode="inline">
+            <Menu theme="dark" defaultSelectedKeys={['/']} mode="inline">
               {this.state.menuTreeNode}
             </Menu>
           </Sider>
