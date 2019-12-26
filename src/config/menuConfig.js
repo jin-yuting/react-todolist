@@ -1,21 +1,21 @@
 const menuList = [
     {
         title: '首页',
-        key: '/',
+        key: '/admin',
         type: 'pie-chart'
     },
     {
-        title: 'User',
+        title: 'UI',
         key: '/admin/ui',
         type: 'user',
         children: [
             {
-                title: 'Tom',
+                title: '按钮',
                 key: '/admin/ui/buttons'
             },
             {
-                title: 'Bill',
-                key: '/admin/ui/bill'
+                title: '弹框',
+                key: '/admin/ui/modals'
             },
             {
                 title: 'Alex',
