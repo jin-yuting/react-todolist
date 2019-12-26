@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Card, Button, Modal } from 'antd';
+const { confirm } = Modal;
 
 class Modals extends Component{
   state = {
@@ -26,14 +27,31 @@ class Modals extends Component{
       [type]: false
     });
   };
+  showConfirm = (type) => {
+    Modal[type]({
+      title: 'Do you Want to delete these items?',
+      content: 'Some descriptions',
+      onOk() {
+        console.log('OK');
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  };
   render(){
     return(
       <div>
-        <Card title="基础弹框">
+        <Card title="弹框">
           <Button type="primary" onClick={()=>this.showModal('showModal1') }>Open Modal</Button>
+          <Button onClick={()=>this.showConfirm('confirm')}>确认对话框</Button>
+          <Button onClick={()=>this.showConfirm('info')}>info</Button>
+          <Button onClick={()=>this.showConfirm('success')}>success</Button>
+          <Button onClick={()=>this.showConfirm('error')}>error</Button>
+          <Button onClick={()=>this.showConfirm('warning')}>warning</Button>
         </Card>
         <Modal
-          title="Basic Modal"
+          title="基础弹框"
           visible={this.state.showModal1}
           onOk={()=>this.handleOk('showModal1')}
           onCancel={()=>this.handleCancel('showModal1')}
