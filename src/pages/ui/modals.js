@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
 import { Card, Button, Modal } from 'antd';
-const { confirm } = Modal;
 
 class Modals extends Component{
   state = {
     loading: false,
     showModal1: false,
     showModal2: false,
-    showModal3: false,
-    showModal3: false,
   }
   showModal  = (type) =>{
     this.setState({
