@@ -23,6 +23,7 @@ class Router extends Component{
           </App>
         } />
         <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
         <Route path='/' exact render={()=> (<Redirect to="/admin" />)}/>
       </HashRouter>
     )

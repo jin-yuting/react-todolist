@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
-import './login.less';
+import './style.less';
 
 class Login extends React.Component {
   handleSubmit = e => {
