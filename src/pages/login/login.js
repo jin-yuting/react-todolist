@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 import './style.less';
 
@@ -51,7 +52,7 @@ class Login extends React.Component {
             <Button type="primary" htmlType="submit" className="login-form-button">
               登录
             </Button>
-            <a href="">去注册</a>
+            <Link to='/register'>去注册</Link>
           </Form.Item>
         </Form>
       </div>

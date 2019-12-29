@@ -6,6 +6,7 @@ import Login from './pages/login/login';
 import Register from './pages/login/register';
 import Buttons from './pages/ui/buttons';
 import Modals from './pages/ui/modals';
+import basicTable from './pages/table/basicTable';
 import NotFound from './pages/NotFound';
 
 class Router extends Component{
@@ -18,6 +19,7 @@ class Router extends Component{
               <Route exact path="/admin" component={Home}/>
               <Route path="/admin/ui/buttons" component={Buttons}/>
               <Route path="/admin/ui/modals" component={Modals}/>
+              <Route path="/admin/table" component={basicTable}/>
               <Route path="/404" component={NotFound}/>
             </Switch>
           </App>

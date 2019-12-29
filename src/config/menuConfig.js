@@ -16,25 +16,32 @@ const menuList = [
             {
                 title: '弹框',
                 key: '/admin/ui/modals'
-            },
-            {
-                title: 'Alex',
-                key: '/admin/ui/alex'
             }
         ]
     },
     {
-        title: 'Team',
-        key: '/admin/team',
+        title: 'form表单',
+        key: '/',
         type: 'team',
         children: [
             {
-                title: 'Team 1',
-                key: '/admin/team/team1'
+                title: '登陆',
+                key: '/login'
             },
             {
-                title: 'Team 2',
-                key: '/admin/team/team2'
+                title: '注册',
+                key: '/register'
+            }
+        ]
+    },
+    {
+        title: '表格',
+        key: '/admin',
+        type: 'team',
+        children: [
+            {
+                title: '基础表格',
+                key: '/admin/table'
             }
         ]
     }
