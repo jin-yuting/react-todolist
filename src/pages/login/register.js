@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import {Form, Input, Radio, Checkbox, Button, InputNumber, Select, Switch,DatePicker, Upload, Modal } from 'antd';
+const { Option } = Select;
 import './style.less';
 const { TextArea } = Input;
 function getBase64(file) {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {HashRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import App from './App';
 import Home from './pages/Home';
 import Login from './pages/login/login';
@@ -9,24 +9,24 @@ import Modals from './pages/ui/modals';
 import basicTable from './pages/table/basicTable';
 import NotFound from './pages/NotFound';
 
-class Router extends Component{
-  render(){
-    return(
+class Router extends Component {
+  render() {
+    return (
       <HashRouter>
-        <Route path="/admin" render={()=>
-          <App>
-            <Switch>
-              <Route exact path="/admin" component={Home}/>
-              <Route path="/admin/ui/buttons" component={Buttons}/>
-              <Route path="/admin/ui/modals" component={Modals}/>
-              <Route path="/admin/table" component={basicTable}/>
-              <Route path="/404" component={NotFound}/>
-            </Switch>
-          </App>
-        } />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path='/' exact render={()=> (<Redirect to="/admin" />)}/>
+        <Switch>
+          <Route path="/admin" render={() =>
+            <App>
+              <Route path="/admin/home" component={Home} />
+              <Route path="/admin/ui/buttons" component={Buttons} />
+              <Route path="/admin/ui/modals" component={Modals} />
+              <Route path="/admin/table/basicTable" component={basicTable} />
+              <Route path="/404" component={NotFound} />
+            </App>
+          } />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Redirect form="/*" to="/admin/home" />
+        </Switch>
       </HashRouter>
     )
   }
