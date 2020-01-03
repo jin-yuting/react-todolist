@@ -13,20 +13,20 @@ class Router extends Component {
   render() {
     return (
       <HashRouter>
-        <Switch>
-          <Route path="/admin" render={() =>
-            <App>
+        <Route path="/admin" render={() =>
+          <App>
+            <Switch>
               <Route path="/admin/home" component={Home} />
               <Route path="/admin/ui/buttons" component={Buttons} />
               <Route path="/admin/ui/modals" component={Modals} />
               <Route path="/admin/table/basicTable" component={basicTable} />
               <Route path="/404" component={NotFound} />
-            </App>
-          } />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Redirect form="/*" to="/admin/home" />
-        </Switch>
+            </Switch>
+          </App>
+        } />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <Redirect form="/*" to="/admin/home" />
       </HashRouter>
     )
   }

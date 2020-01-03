@@ -1,30 +1,46 @@
 import React from 'react';
-import {Card, Table} from 'antd';
+import { Card, Table } from 'antd';
 import axios from '../../axios/index';
+import Utils from '../../utils/utils';
 
 class basicTable extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
-    this.state= {
-      dataSource: []
+    this.state = {
+      dataSource: [],
+      page: 1
     }
   }
-  componentDidMount(){
+  componentWillUnmount = () => {
+    this.setState = (state, callback) => {
+      return;
+    };
+
+    // clearTimeout(timer);
+  }
+  componentDidMount() {
     this.requestData()
   }
   //动态获取数据
-  requestData =() =>{
+  requestData = () => {
+    let _that = this;
     axios.ajax({
       url: '/table/list',
       data: {
-        params:{
-          page: 1
+        params: {
+          page: this.state.page
         }
       }
-    }).then((res)=>{
-      if(res.code === 0){
+    }).then((res) => {
+      if (res.code === 0) {
         this.setState({
-          dataSource: res.result
+          dataSource: res.result,
+          pagination: Utils.pagination(res,(current)=>{
+            _that.setState({
+              page: current
+            })
+            _that.requestData()
+          })
         })
       }
     })
@@ -33,7 +49,7 @@ class basicTable extends React.Component {
   onSelectChange = (selectedRowKeys, selectedRows) => {
     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
   }
-  render(){
+  render() {
     const columns = [
       {
         title: '序列号',
@@ -49,16 +65,16 @@ class basicTable extends React.Component {
         title: '性别',
         dataIndex: 'sex',
         key: 'sex',
-        render(sex){
-          return sex === 1 ?'男':'女'
+        render(sex) {
+          return sex === 1 ? '男' : '女'
         }
       },
       {
         title: '状态',
         dataIndex: 'state',
         key: 'state',
-        render(state){
-          let config ={
+        render(state) {
+          let config = {
             '1': '咸鱼一条',
             '2': '咸鱼二条',
             '3': '咸鱼三条',
@@ -72,8 +88,8 @@ class basicTable extends React.Component {
         title: '爱好',
         dataIndex: 'interest',
         key: 'interest',
-        render(interest){
-          let config ={
+        render(interest) {
+          let config = {
             '1': '阅读',
             '2': '旅行',
             '3': '探险',
@@ -106,10 +122,15 @@ class basicTable extends React.Component {
       type: 'checkbox',
       onChange: this.onSelectChange
     };
-    return(
+    return (
       <div>
         <Card title='基础表格'>
-          <Table rowSelection={rowSelection} rowKey={record=> record.id} bordered dataSource={this.state.dataSource} columns={columns} />
+          <Table bordered 
+          pagination={this.state.pagination} 
+          rowSelection={rowSelection} 
+          rowKey={record => record.id} 
+          dataSource={this.state.dataSource} 
+          columns={columns} />
         </Card>
       </div>
     )

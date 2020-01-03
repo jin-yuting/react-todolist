@@ -21,7 +21,7 @@ const menuList = [
   },
   {
     title: '表单',
-    key: '/admin/form',
+    key: '/form',
     type: 'team',
     children: [
       {
