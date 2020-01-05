@@ -2,12 +2,12 @@ const menuList = [
   {
     title: '首页',
     key: '/admin/home',
-    type: 'pie-chart'
+    type: 'home'
   },
   {
     title: 'UI',
     key: '/admin/ui',
-    type: 'user',
+    type: 'coffee',
     children: [
       {
         title: '按钮',
@@ -22,7 +22,7 @@ const menuList = [
   {
     title: '表单',
     key: '/form',
-    type: 'team',
+    type: 'bars',
     children: [
       {
         title: '登陆',
@@ -37,13 +37,18 @@ const menuList = [
   {
     title: '表格',
     key: '/admin/table',
-    type: 'team',
+    type: 'table',
     children: [
       {
         title: '基础表格',
-        key: '/admin/table/basicTable'
+        key: '/admin/table/basic'
       }
     ]
+  },
+  {
+    title: '城市管理',
+    key: '/admin/table/city',
+    type: 'apartment'
   }
 ]
 export default menuList;

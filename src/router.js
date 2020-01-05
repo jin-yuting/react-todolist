@@ -6,7 +6,8 @@ import Login from './pages/login/login';
 import Register from './pages/login/register';
 import Buttons from './pages/ui/buttons';
 import Modals from './pages/ui/modals';
-import basicTable from './pages/table/basicTable';
+import BasicTable from './pages/table/basicTable';
+import CityTable from './pages/table/cityTable';
 import NotFound from './pages/NotFound';
 
 class Router extends Component {
@@ -19,14 +20,15 @@ class Router extends Component {
               <Route path="/admin/home" component={Home} />
               <Route path="/admin/ui/buttons" component={Buttons} />
               <Route path="/admin/ui/modals" component={Modals} />
-              <Route path="/admin/table/basicTable" component={basicTable} />
+              <Route path="/admin/table/basic" component={BasicTable} />
+              <Route path="/admin/table/city" component={CityTable} />
               <Route path="/404" component={NotFound} />
             </Switch>
           </App>
         } />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Redirect form="/*" to="/admin/home" />
+        <Redirect form="/*" to="/admin/table/city" />
       </HashRouter>
     )
   }

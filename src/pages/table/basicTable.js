@@ -23,7 +23,6 @@ class basicTable extends React.Component {
   }
   //动态获取数据
   requestData = () => {
-    let _that = this;
     axios.ajax({
       url: '/table/list',
       data: {
@@ -36,10 +35,10 @@ class basicTable extends React.Component {
         this.setState({
           dataSource: res.result,
           pagination: Utils.pagination(res,(current)=>{
-            _that.setState({
+            this.setState({
               page: current
             })
-            _that.requestData()
+            this.requestData()
           })
         })
       }
