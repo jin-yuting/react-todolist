@@ -7,7 +7,7 @@ const menuList = [
   {
     title: 'UI',
     key: '/admin/ui',
-    type: 'coffee',
+    type: 'smile',
     children: [
       {
         title: '按钮',
@@ -49,6 +49,11 @@ const menuList = [
     title: '城市管理',
     key: '/admin/table/city',
     type: 'apartment'
+  },
+  {
+    title: '订单管理',
+    key: '/admin/table/order',
+    type: 'profile'
   }
 ]
 export default menuList;

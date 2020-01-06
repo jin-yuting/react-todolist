@@ -49,7 +49,7 @@ class App extends Component {
         <Layout style={{ minHeight: '100vh' }}>
           <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
             <div className='home-title'>后台管理系统</div>
-            <Menu theme="dark" defaultSelectedKeys={['/admin/table/city']} mode="inline">
+            <Menu theme="dark" defaultSelectedKeys={['/admin/table/order']} mode="inline">
               {this.state.menuTreeNode}
             </Menu>
           </Sider>
