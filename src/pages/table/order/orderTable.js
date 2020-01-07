@@ -50,8 +50,7 @@ export default class cityTable extends React.Component {
   openOrderDetail = () =>{
     let item = this.state.selectdItem;
     if(item.length){
-      console.log('456')
-      window.open(`/#/ordre/detail/${item.orderId}`,'_blank')
+      window.open(`/#/common/order/detail/${item[0].userId}`,'_blank')
     } else {
       Modal.info({
         title:'信息',
