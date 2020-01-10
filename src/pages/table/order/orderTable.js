@@ -1,16 +1,39 @@
 import React from 'react';
 import { Card, Table, Button, Modal } from 'antd';
-import OrderForm from '../../../components/orderForm';
+import BaseForm from '../../../components/BaseForm/index';
 import axios from '../../../axios/index';
 import Utils from '../../../utils/utils';
 
-export default class cityTable extends React.Component {
+export default class orderTable extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       dataSource: [], //table源数据
       page: 1,
-      selectdItem: [] //选中行数据
+      selectdItem: [], //选中行数据
+      formList:[
+        {
+          type:'SELECT',
+          label: '城市',
+          placeholder:'全部',
+          initialValue:"2",
+          field: 'city',
+          width:100,
+          list:[{id:'0',name:'全部'},{id:'1',name:'北京'},{id:'2',name:'上海'}]
+        },
+        {
+          type:'时间查询'
+        },
+        {
+          type:'SELECT',
+          label: '订单状态',
+          placeholder:'全部',
+          initialValue:'1',
+          field: 'status',
+          width: 100,
+          list:[{id:'0',name:'全部'},{id:'1',name:'进行中'},{id:'2',name:'结束行程'}]
+        },
+      ]
     }
   }
   componentWillUnmount = () => {
@@ -64,6 +87,10 @@ export default class cityTable extends React.Component {
     this.setState({
       selectdItem: selectedRows
     })
+  }
+  //查询
+  handleFilter =(params)=>{
+    console.log(params)
   }
   render() {
     const columns = [
@@ -144,7 +171,7 @@ export default class cityTable extends React.Component {
     return (
       <div>
         <Card>
-          <OrderForm />
+          <BaseForm formList={this.state.formList} filterSubmit={this.handleFilter} />
           <Button onClick={this.openOrderDetail}>订单详情</Button>
           <Button >结束订单</Button>
         </Card>
@@ -158,4 +185,3 @@ export default class cityTable extends React.Component {
     )
   }
 }
-

@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 import MenuConfig from './config/menuConfig';
 import Head from './pages/Head';
 import {connect} from 'react-redux';
-// import Child1 from '../components/Child1';
-// import Child2 from '../components/Child2';
+// import Child1 from './components/Child1';
+// import Child2 from './components/Child2';
 import DocumentTitle from 'react-document-title';
 import { Layout, Menu, Icon } from 'antd';
 

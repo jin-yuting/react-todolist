@@ -90,7 +90,7 @@ class Detail extends Component {
       let point = positionList[i];
       trackPoint.push(new window.BMap.Point(point.lon,point.lat));
     }
-    // 绘制服务器
+    // 绘制服务区
     let polygon = new window.BMap.Polygon(trackPoint,{
       strokeColor: '#CE0000',
       strokeWeight:4,
