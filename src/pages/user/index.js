@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Table, Input, Badge, Button, Popconfirm, message, Modal, Form, Radio, DatePicker, Select } from 'antd';
 import BaseForm from '../../components/BaseForm/index';
+import moment from 'moment';
 import axios from '../../axios/index';
 import RadioGroup from 'antd/lib/radio/group';
 const { Option } = Select;
@@ -37,7 +38,9 @@ export default class UserTable extends React.Component {
       ],
       type:'',
       isVisible: false, // 模态框
-      title:''
+      title:'',
+      selectItem:[], // 选中项值
+      userInfo: {} // 用户信息
     }
   }
   componentWillUnmount = () => {
@@ -56,6 +59,9 @@ export default class UserTable extends React.Component {
   }
   // 数据列表选择
   onSelectChange = (selectedRowKeys, selectedRows) => {
+    this.setState({
+      selectItem:selectedRows
+    })
     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
   }
   // 排序操作
@@ -82,19 +88,33 @@ export default class UserTable extends React.Component {
         isVisible: true,
         title:'创建员工'
       })
+    } else if (type === 'edit'){
+      if(this.state.selectItem.length){
+        this.setState({
+          type,
+          isVisible: true,
+          title:'编辑员工',
+          userInfo: this.state.selectItem[0]
+        })
+      }else{
+        Modal.info({
+          title:'信息',
+          content:'请先选择一条数据'
+        })
+        return;
+      }
     }
   }
   // 提交创建员工
   handleSubmit=()=>{
     let type = this.state.type;;
     let data = this.formRef.props.form.getFieldsValue();
-    console.log(data)
     this.setState({
       isVisible: false
     })
     this.formRef.props.form.resetFields();
     axios.ajax({
-      url:'/user/add',
+      url:type==='create'?'/user/add':'/user/edit',
       data:{
         params: data
       }
@@ -240,7 +260,7 @@ export default class UserTable extends React.Component {
               })
             }}
             >
-            <UserForm  type={this.state.type} wrappedComponentRef={(form) => { this.formRef = form }}/>
+            <UserForm  type={this.state.type} userInfo={this.state.userInfo} wrappedComponentRef={(form) => { this.formRef = form }}/>
           </Modal>
       </div>
     )
@@ -248,6 +268,8 @@ export default class UserTable extends React.Component {
 }
 class UserForm extends React.Component{
   render(){
+    let type = this.props.type;
+    let userInfo = this.props.userInfo || {};
     const { getFieldDecorator } = this.props.form;
     const formItemLayout ={
       labelCol:{span:5},
@@ -257,12 +279,14 @@ class UserForm extends React.Component{
       <Form layout='horizontal'>
         <Form.Item label='用户名' {...formItemLayout}>
           {getFieldDecorator('userName', {
+            initialValue:userInfo.userName
             })(
               <Input type='text' placeholder='请输入用户名' />
           )}
         </Form.Item>
         <Form.Item label='性别' {...formItemLayout}>
           {getFieldDecorator('sex', {
+            initialValue:userInfo.sex
             })(
               <RadioGroup>
                 <Radio value ={1}>男</Radio>
@@ -272,6 +296,7 @@ class UserForm extends React.Component{
         </Form.Item>
         <Form.Item label='状态' {...formItemLayout}>
           {getFieldDecorator('status', {
+            initialValue:userInfo.status
             })(
               <Select>
                 <Option value={1}>咸鱼一条</Option>
@@ -281,13 +306,15 @@ class UserForm extends React.Component{
           )}
         </Form.Item>
         <Form.Item label='生日' {...formItemLayout}>
-          {getFieldDecorator('date', {
+          {getFieldDecorator('birthday', {
+            initialValue:moment(userInfo.birthday)
             })(
               <DatePicker />
           )}
         </Form.Item>
         <Form.Item label='联系地址' {...formItemLayout}>
           {getFieldDecorator('address', {
+            initialValue:userInfo.address
             })(
               <TextArea rows={2} placeholder='请输入联系地址'/>
           )}
