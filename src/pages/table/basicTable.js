@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, Table, Badge, Button, Popconfirm, message } from 'antd';
 import axios from '../../axios/index';
-import Utils from '../../utils/utils';
 
 class basicTable extends React.Component {
   constructor(props) {

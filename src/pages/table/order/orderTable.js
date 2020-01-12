@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, Table, Button, Modal } from 'antd';
 import BaseForm from '../../../components/BaseForm/index';
 import axios from '../../../axios/index';
-import Utils from '../../../utils/utils';
 
 export default class orderTable extends React.Component {
   constructor(props) {
@@ -70,8 +69,8 @@ export default class orderTable extends React.Component {
     })
   }
   //查询
-  handleFilter =(params)=>{
-    console.log(params)
+  handleFilter =()=>{
+    this.requestData();
   }
   render() {
     const columns = [

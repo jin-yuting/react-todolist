@@ -1,9 +1,11 @@
 import React from 'react';
-import { Form, Input, Select, Button,Checkbox } from 'antd';
+import { Form, Input, Select, Button, Checkbox, DatePicker } from 'antd';
+import locale from 'antd/lib/date-picker/locale/zh_CN';
 import Utils from '../../utils/utils';
+const { RangePicker } = DatePicker;
 
 class FilterForm extends React.Component {
-  handleFilterSubmit =() =>{
+  handleFilterSubmit = () => {
     let fieldsValue = this.props.form.getFieldsValue();
     this.props.filterSubmit(fieldsValue);
   }
@@ -38,7 +40,7 @@ class FilterForm extends React.Component {
             )}
           </Form.Item>
           formItemList.push(SELECT);
-        }else if (item.type === 'CHECKBOX') {
+        } else if (item.type === 'CHECKBOX') {
           const CHECKBOX = <Form.Item label={label} key={field}>
             {getFieldDecorator([field], {
               valuePropName: 'checked',
@@ -50,6 +52,14 @@ class FilterForm extends React.Component {
             )}
           </Form.Item>
           formItemList.push(CHECKBOX);
+        } else if (item.type === 'DATE') {
+          const DATE = <Form.Item label={label} key={field}>
+            {getFieldDecorator([field], {
+            })(
+              <RangePicker style={{ width: width }} locale={locale} onChange={this.onChange} format="YYYY/MM/DD HH:mm:ss" />
+            )}
+          </Form.Item>
+          formItemList.push(DATE);
         }
       })
     }
@@ -58,7 +68,7 @@ class FilterForm extends React.Component {
   render() {
     return (
       <Form layout="inline">
-        { this.initFormList() }
+        {this.initFormList()}
         <Form.Item>
           <Button type="primary" onClick={this.handleFilterSubmit}>查询</Button>
         </Form.Item>

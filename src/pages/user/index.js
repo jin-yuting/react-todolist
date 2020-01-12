@@ -1,32 +1,43 @@
 import React from 'react';
-import { Card, Table, Badge, Button, Popconfirm, message } from 'antd';
+import { Card, Table, Input, Badge, Button, Popconfirm, message, Modal, Form, Radio, DatePicker, Select } from 'antd';
 import BaseForm from '../../components/BaseForm/index';
 import axios from '../../axios/index';
-import Utils from '../../utils/utils';
+import RadioGroup from 'antd/lib/radio/group';
+const { Option } = Select;
+const { TextArea } = Input;
 
-class UserTable extends React.Component {
+export default class UserTable extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      dataSource: [],
-      page: 1,
-      formList: [
+      dataSource: [], //列表数据
+      page: 1, // 页码
+      formList: [ // 搜索
           {
             type:'INPUT',
             label: '用户名',
+            field: 'userName',
             placeholder:'请输入用户名',
             width:100,
           },
           {
             type:'INPUT',
             label: '手机号',
+            field: 'phone',
             placeholder:'请输入手机号',
             width:100,
           },
           {
-              
+            type:'DATE',
+            label: '选择日期',
+            field: 'date',
+            placeholder:'请输入日期',
+            width:200,
           }
-      ]
+      ],
+      type:'',
+      isVisible: false, // 模态框
+      title:''
     }
   }
   componentWillUnmount = () => {
@@ -41,26 +52,7 @@ class UserTable extends React.Component {
   }
   //动态获取数据
   requestData = () => {
-    axios.ajax({
-      url: '/table/list',
-      data: {
-        params: {
-          page: this.state.page
-        }
-      }
-    }).then((res) => {
-      if (res.code === 0) {
-        this.setState({
-          dataSource: res.result,
-          pagination: Utils.pagination(res,(current)=>{
-            this.setState({
-              page: current
-            })
-            this.requestData()
-          })
-        })
-      }
-    })
+    axios.requestList(this,'/table/list',this.state.page);
   }
   // 数据列表选择
   onSelectChange = (selectedRowKeys, selectedRows) => {
@@ -81,6 +73,39 @@ class UserTable extends React.Component {
   // 确定气泡取消
   cancel =(e)=>{
     message.error('Click on No');
+  }
+  // 操作 || 添加/详情/编辑/删除
+  handleOperate = (type)=>{
+    if(type === 'create'){
+      this.setState({
+        type,
+        isVisible: true,
+        title:'创建员工'
+      })
+    }
+  }
+  // 提交创建员工
+  handleSubmit=()=>{
+    let type = this.state.type;;
+    let data = this.formRef.props.form.getFieldsValue();
+    console.log(data)
+    this.setState({
+      isVisible: false
+    })
+    this.formRef.props.form.resetFields();
+    axios.ajax({
+      url:'/user/add',
+      data:{
+        params: data
+      }
+    }).then((res)=>{
+      if(res.code === 0){
+        this.setState({
+          isVisible: false
+        })
+        this.requestData();
+      }
+    })
   }
   render() {
     const columns = [
@@ -160,7 +185,7 @@ class UserTable extends React.Component {
         key: 'time',
       },
       {
-        title: '地址',
+        title: '联系地址',
         dataIndex: 'address',
         width: 250,
         key: 'address',
@@ -177,7 +202,7 @@ class UserTable extends React.Component {
           okText="确定"
           cancelText="取消"
         >
-        <Button size="small" onClick={(item)=>{this.handleDelete(item)}}>删除</Button>
+          <Button size="small" onClick={(item)=>{this.handleDelete(item)}}>删除</Button>
         </Popconfirm>
         }
       }
@@ -190,19 +215,85 @@ class UserTable extends React.Component {
     return (
       <div>
           <Card>
-          <BaseForm formList={this.state.formList} />
+            <BaseForm formList={this.state.formList} />
+            <Button icon='plus' onClick={()=>this.handleOperate('create')}>创建员工</Button>
+            <Button icon='edit' onClick={()=>this.handleOperate('edit')}>编辑员工</Button>
+            <Button onClick={()=>this.handleOperate('detail')}>员工详情</Button>
+            <Button icon='delete' onClick={()=>this.handleOperate('delete')}>删除员工</Button>
           </Card>
-        <Card title='基础表格'>
           <Table bordered scroll={{ x: 1300, y: 450 }} 
-          pagination={this.state.pagination} 
-          rowSelection={rowSelection} 
-          rowKey={record => record.id} 
-          dataSource={this.state.dataSource} 
-          columns={columns}
-          onChange={this.handleChange} />
-        </Card>
+            pagination={this.state.pagination} 
+            rowSelection={rowSelection} 
+            rowKey={record => record.id} 
+            dataSource={this.state.dataSource} 
+            columns={columns}
+            onChange={this.handleChange} />
+          <Modal 
+            title={this.state.title}
+            width={600}
+            visible={this.state.isVisible}
+            onOk={this.handleSubmit}
+            onCancel={()=>{
+              this.formRef.props.form.resetFields();
+              this.setState({
+                isVisible: false
+              })
+            }}
+            >
+            <UserForm  type={this.state.type} wrappedComponentRef={(form) => { this.formRef = form }}/>
+          </Modal>
       </div>
     )
   }
 }
-export default UserTable;
+class UserForm extends React.Component{
+  render(){
+    const { getFieldDecorator } = this.props.form;
+    const formItemLayout ={
+      labelCol:{span:5},
+      wrapperCol:{span:16}
+    }
+    return(
+      <Form layout='horizontal'>
+        <Form.Item label='用户名' {...formItemLayout}>
+          {getFieldDecorator('userName', {
+            })(
+              <Input type='text' placeholder='请输入用户名' />
+          )}
+        </Form.Item>
+        <Form.Item label='性别' {...formItemLayout}>
+          {getFieldDecorator('sex', {
+            })(
+              <RadioGroup>
+                <Radio value ={1}>男</Radio>
+                <Radio value ={2}>女</Radio>
+              </RadioGroup>
+          )}
+        </Form.Item>
+        <Form.Item label='状态' {...formItemLayout}>
+          {getFieldDecorator('status', {
+            })(
+              <Select>
+                <Option value={1}>咸鱼一条</Option>
+                <Option value={2}>斜杠青年</Option>
+                <Option value={3}>自有职业者</Option>
+              </Select>
+          )}
+        </Form.Item>
+        <Form.Item label='生日' {...formItemLayout}>
+          {getFieldDecorator('date', {
+            })(
+              <DatePicker />
+          )}
+        </Form.Item>
+        <Form.Item label='联系地址' {...formItemLayout}>
+          {getFieldDecorator('address', {
+            })(
+              <TextArea rows={2} placeholder='请输入联系地址'/>
+          )}
+        </Form.Item>
+      </Form>
+    )
+  }
+}
+UserForm = Form.create({})(UserForm)

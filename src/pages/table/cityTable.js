@@ -3,7 +3,6 @@ import moment from 'moment';
 import { Card, Table, Button, Modal, Form, Select, message } from 'antd';
 import FilterForm from '../../components/FilterForm';
 import axios from '../../axios/index';
-import Utils from '../../utils/utils';
 const { Option } = Select;
 
 export default class cityTable extends React.Component {
