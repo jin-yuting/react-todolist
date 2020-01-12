@@ -1,14 +1,32 @@
 import React from 'react';
 import { Card, Table, Badge, Button, Popconfirm, message } from 'antd';
+import BaseForm from '../../components/BaseForm/index';
 import axios from '../../axios/index';
 import Utils from '../../utils/utils';
 
-class basicTable extends React.Component {
+class UserTable extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       dataSource: [],
-      page: 1
+      page: 1,
+      formList: [
+          {
+            type:'INPUT',
+            label: '用户名',
+            placeholder:'请输入用户名',
+            width:100,
+          },
+          {
+            type:'INPUT',
+            label: '手机号',
+            placeholder:'请输入手机号',
+            width:100,
+          },
+          {
+              
+          }
+      ]
     }
   }
   componentWillUnmount = () => {
@@ -23,7 +41,26 @@ class basicTable extends React.Component {
   }
   //动态获取数据
   requestData = () => {
-    axios.requestList(this,'/table/list',this.state.page)
+    axios.ajax({
+      url: '/table/list',
+      data: {
+        params: {
+          page: this.state.page
+        }
+      }
+    }).then((res) => {
+      if (res.code === 0) {
+        this.setState({
+          dataSource: res.result,
+          pagination: Utils.pagination(res,(current)=>{
+            this.setState({
+              page: current
+            })
+            this.requestData()
+          })
+        })
+      }
+    })
   }
   // 数据列表选择
   onSelectChange = (selectedRowKeys, selectedRows) => {
@@ -152,6 +189,9 @@ class basicTable extends React.Component {
     };
     return (
       <div>
+          <Card>
+          <BaseForm formList={this.state.formList} />
+          </Card>
         <Card title='基础表格'>
           <Table bordered scroll={{ x: 1300, y: 450 }} 
           pagination={this.state.pagination} 
@@ -165,4 +205,4 @@ class basicTable extends React.Component {
     )
   }
 }
-export default basicTable;
+export default UserTable;

@@ -48,28 +48,7 @@ export default class orderTable extends React.Component {
   }
   //动态获取数据
   requestData = () => {
-    // let _this = this;
     axios.requestList(this,'/order/list',this.state.page)
-    // axios.ajax({
-    //   url: '/order/list',
-    //   data: {
-    //     params: {
-    //       page: this.state.page
-    //     }
-    //   }
-    // }).then((res) => {
-    //   if (res.code === 0) {
-    //     this.setState({
-    //       dataSource: res.result,
-    //       pagination: Utils.pagination(res, (current) => {
-    //         this.setState({
-    //           page: current
-    //         })
-    //         this.requestData()
-    //       })
-    //     })
-    //   }
-    // })
   }
   // 订单详情
   openOrderDetail = () =>{

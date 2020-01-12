@@ -11,6 +11,7 @@ import Modals from './pages/ui/modals';
 import BasicTable from './pages/table/basicTable';
 import CityTable from './pages/table/cityTable';
 import OrderTable from './pages/table/order/orderTable';
+import UserTable from './pages/user/index';
 import Detail from './pages/table/order/detail';
 import NotFound from './pages/NotFound';
 
@@ -28,6 +29,7 @@ class Router extends Component {
                 <Route path="/admin/table/basic" component={BasicTable} />
                 <Route path="/admin/table/city" component={CityTable} />
                 <Route path="/admin/table/order" component={OrderTable} />
+                <Route path="/admin/table/user" component={UserTable} />
                 <Route path="/404" component={NotFound} />
               </Admin>
             } />

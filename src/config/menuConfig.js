@@ -54,6 +54,11 @@ const menuList = [
     title: '订单管理',
     key: '/admin/table/order',
     type: 'profile'
+  },
+  {
+    title: '用户管理',
+    key: '/admin/table/user',
+    type: 'user'
   }
 ]
 export default menuList;
