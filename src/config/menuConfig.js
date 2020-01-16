@@ -63,6 +63,10 @@ const menuList = [
       {
         title: '柱状图',
         key: '/admin/echarts/bar'
+      },
+      {
+        title: '饼图',
+        key: '/admin/echarts/pie'
       }
     ]
   },
