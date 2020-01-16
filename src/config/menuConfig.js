@@ -54,6 +54,17 @@ const menuList = [
     title: '订单管理',
     key: '/admin/table/order',
     type: 'profile'
-  }
+  },
+  {
+    title: '图表',
+    key: '/admin/echarts',
+    type: 'table',
+    children: [
+      {
+        title: '柱状图',
+        key: '/admin/echarts/bar'
+      }
+    ]
+  },
 ]
 export default menuList;

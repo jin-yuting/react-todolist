@@ -12,6 +12,7 @@ import BasicTable from './pages/table/basicTable';
 import CityTable from './pages/table/cityTable';
 import OrderTable from './pages/table/order/orderTable';
 import Detail from './pages/table/order/detail';
+import Bar from './pages/echarts/bar/index';
 import NotFound from './pages/NotFound';
 
 class Router extends Component {
@@ -28,6 +29,7 @@ class Router extends Component {
                 <Route path="/admin/table/basic" component={BasicTable} />
                 <Route path="/admin/table/city" component={CityTable} />
                 <Route path="/admin/table/order" component={OrderTable} />
+                <Route path="/admin/echarts/bar" component={Bar} />
                 <Route path="/404" component={NotFound} />
               </Admin>
             } />
