@@ -56,9 +56,14 @@ const menuList = [
     type: 'profile'
   },
   {
+    title: '富文本',
+    key: '/admin/draft',
+    type: 'edit'
+  },
+  {
     title: '图表',
     key: '/admin/echarts',
-    type: 'table',
+    type: 'radar-chart',
     children: [
       {
         title: '柱状图',
