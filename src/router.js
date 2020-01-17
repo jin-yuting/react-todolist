@@ -14,6 +14,7 @@ import OrderTable from './pages/table/order/orderTable';
 import Detail from './pages/table/order/detail';
 import Bar from './pages/echarts/bar/index';
 import Pie from './pages/echarts/pie/index';
+import Line from './pages/echarts/line/index';
 import NotFound from './pages/NotFound';
 
 class Router extends Component {
@@ -32,6 +33,7 @@ class Router extends Component {
                 <Route path="/admin/table/order" component={OrderTable} />
                 <Route path="/admin/echarts/bar" component={Bar} />
                 <Route path="/admin/echarts/pie" component={Pie} />
+                <Route path="/admin/echarts/line" component={Line} />
                 <Route path="/404" component={NotFound} />
               </Admin>
             } />

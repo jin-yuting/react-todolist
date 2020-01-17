@@ -1,15 +1,18 @@
 import React from 'react';
 import { Card } from 'antd';
+// 按需加载
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/markPoint';
+
 import ReactEcharts from "echarts-for-react";
 
 export default class Bar extends React.Component {
   componentDidMount() {
+    // 可以定制主体
   }
   getOption1 = () => {
     let option = {
