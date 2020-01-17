@@ -80,7 +80,7 @@ export default class Draft extends Component {
         >
         {draftToHtml(this.state.contentState)}
         </Modal>
-      </div >
+      </div>
     );
   }
 }

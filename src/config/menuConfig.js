@@ -79,5 +79,10 @@ const menuList = [
       }
     ]
   },
+  {
+    title: '权限管理',
+    key: '/admin/persimission',
+    type: 'user'
+  },
 ]
 export default menuList;

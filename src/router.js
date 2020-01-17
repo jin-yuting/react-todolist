@@ -11,7 +11,8 @@ import Modals from './pages/ui/modals';
 import BasicTable from './pages/table/basicTable';
 import CityTable from './pages/table/cityTable';
 import OrderTable from './pages/table/order/orderTable';
-import Draft from './pages//draft/index';
+import Draft from './pages/draft/index';
+import Permission from './pages/permission/index';
 import Detail from './pages/table/order/detail';
 import Bar from './pages/echarts/bar/index';
 import Pie from './pages/echarts/pie/index';
@@ -33,6 +34,7 @@ class Router extends Component {
                 <Route path="/admin/table/city" component={CityTable} />
                 <Route path="/admin/table/order" component={OrderTable} />
                 <Route path="/admin/draft" component={Draft} />
+                <Route path="/admin/persimission" component={Permission} />
                 <Route path="/admin/echarts/bar" component={Bar} />
                 <Route path="/admin/echarts/pie" component={Pie} />
                 <Route path="/admin/echarts/line" component={Line} />
