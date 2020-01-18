@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Row, Col } from 'antd';
 // 按需加载
-import echarts from 'echarts/lib/echarts';
+// import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
@@ -16,7 +16,7 @@ export default class Line extends React.Component {
   }
   getOption1 = () => {
     let option = {
-      title: '用户骑行订单', title: {
+      title: {
         text: '用户骑行订单'
       },
       tooltip: {
@@ -48,7 +48,7 @@ export default class Line extends React.Component {
   }
   getOption2 = () => {
     let option = {
-      title: '用户骑行订单', title: {
+      title: {
         text: '用户骑行订单'
       },
       tooltip: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from 'antd';
 // 按需加载
-import echarts from 'echarts/lib/echarts';
+// import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';

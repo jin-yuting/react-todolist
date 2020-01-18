@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Row, Col } from 'antd';
 // 按需加载
-import echarts from 'echarts/lib/echarts';
+// import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/pie';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
@@ -16,7 +16,7 @@ export default class Pie extends React.Component {
   }
   getOption1 = () => {
     let option = {
-      title: '用户骑行订单', title: {
+      title: {
         text: '用户骑行订单'
       },
       tooltip: {
@@ -51,7 +51,7 @@ export default class Pie extends React.Component {
   }
   getOption2 = () => {
     let option = {
-      title: '用户骑行订单', title: {
+      title: {
         text: '用户骑行订单'
       },
       tooltip: {
@@ -86,7 +86,7 @@ export default class Pie extends React.Component {
   }
   getOption3 = () => {
     let option = {
-      title: '用户骑行订单', title: {
+      title: {
         text: '用户骑行订单'
       },
       tooltip: {

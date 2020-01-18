@@ -138,7 +138,7 @@ export default class cityTable extends React.Component {
           <FilterForm />
           <Button onClick={this.handleOpenCity}>开通城市</Button>
         </Card>
-        <Table bordered scroll={{ y: 320 }}
+        <Table bordered scroll={{ y: 450 }}
           pagination={this.state.pagination}
           rowKey={record => record.id}
           dataSource={this.state.dataSource}
