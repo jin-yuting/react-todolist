@@ -25,22 +25,6 @@ class Router extends Component {
       <HashRouter>
         <App>
           <Switch>
-            <Route path="/admin" render={() =>
-              <Admin>
-                <Route path="/admin/home" component={Home} />
-                <Route path="/admin/ui/buttons" component={Buttons} />
-                <Route path="/admin/ui/modals" component={Modals} />
-                <Route path="/admin/table/basic" component={BasicTable} />
-                <Route path="/admin/table/city" component={CityTable} />
-                <Route path="/admin/table/order" component={OrderTable} />
-                <Route path="/admin/draft" component={Draft} />
-                <Route path="/admin/persimission" component={Permission} />
-                <Route path="/admin/echarts/bar" component={Bar} />
-                <Route path="/admin/echarts/pie" component={Pie} />
-                <Route path="/admin/echarts/line" component={Line} />
-                <Route path="/404" component={NotFound} />
-              </Admin>
-            } />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/common" render={() =>
@@ -48,7 +32,25 @@ class Router extends Component {
                 <Route path="/common/order/detail/:userId" component={Detail} />
               </Common>
             } />
-            <Redirect form="/" to="/admin/home" />
+            <Route path="/" render={() =>
+              <Admin>
+                <Switch>
+                  <Route path="/home" component={Home} />
+                  <Route path="/ui/buttons" component={Buttons} />
+                  <Route path="/ui/modals" component={Modals} />
+                  <Route path="/table/basic" component={BasicTable} />
+                  <Route path="/table/city" component={CityTable} />
+                  <Route path="/table/order" component={OrderTable} />
+                  <Route path="/draft" component={Draft} />
+                  <Route path="/persimission" component={Permission} />
+                  <Route path="/echarts/bar" component={Bar} />
+                  <Route path="/echarts/pie" component={Pie} />
+                  <Route path="/echarts/line" component={Line} />
+                  <Route path="/404" component={NotFound} />
+                  <Redirect to="/home" />
+                </Switch>
+              </Admin>
+            } />
           </Switch>
         </App>
       </HashRouter>

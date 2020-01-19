@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Button, Table, Modal, Form, Select, Input, Tree } from 'antd';
+import { Card, Button, Table, Modal, Form, Select, Input, Tree, Transfer } from 'antd';
 import axios from '../../axios/index';
 import Utils from '../../utils/utils';
 import menuConfig from '../../config/menuConfig';
@@ -18,8 +18,8 @@ export default class Permission extends Component {
         "startTime": "1979-11-03 04:01:04",
         "endTime": "1972-08-04 03:23:45",
         "menus": [
-          "/admin/home",
-          "/admin/ui/buttons"
+          "/home",
+          "/ui/buttons"
         ]
       }],
       page: 1,
@@ -27,7 +27,42 @@ export default class Permission extends Component {
       selectdItem: [], //选中行数据
       detailInfo: {},
       isPermVisible: false,
-      menuInfo:[]
+      menuInfo: [],
+      isUserAuth: false, // 用户授权弹框
+      roleUserList: [
+        {
+          "status": 1,
+          "user_id": 1,
+          "user_name": '浅草'
+        },
+        {
+          "status": 0,
+          "user_id": 1,
+          "user_name": '大树'
+        },
+        {
+          "status": 1,
+          "user_id": 1,
+          "user_name": '南山'
+        },
+        {
+          "status": 0,
+          "user_id": 1,
+          "user_name": '嘉富'
+        },
+        {
+          "status": 1,
+          "user_id": 1,
+          "user_name": '沈娟'
+        },
+        {
+          "status": 1,
+          "user_id": 1,
+          "user_name": '叶杨'
+        }
+      ],
+      mockData: [],
+      targetKeys: []
     }
   }
   componentDidMount() {
@@ -72,7 +107,7 @@ export default class Permission extends Component {
   handleSubmit = () => {
     // let roleInfo = this.formRef.props.form.getFieldsValue();
   }
-  handlePermEditSubmit = ()=>{
+  handlePermEditSubmit = () => {
     let data = this.permform.props.form.getFieldsValue();
     console.log(data)
   }
@@ -91,6 +126,42 @@ export default class Permission extends Component {
       return;
     }
   }
+  // 用户授权
+  handleUserAuth = () => {
+    if (this.state.selectdItem.length) {
+      this.setState({
+        isUserAuth: true,
+        detailInfo: this.state.selectdItem[0],
+      })
+      this.getAuthUserList(this.state.roleUserList)
+    } else {
+      Modal.info({
+        title: '信息',
+        content: '请先选择一条数据'
+      })
+      return;
+    }
+  }
+  // 筛选目标用户
+  getAuthUserList = (dataSource) => {
+    const mockData = [];
+    const targetKeys = [];
+    if (dataSource.length) {
+      for (let i = 0; i < dataSource.length; i++) {
+        const data = {
+          key: dataSource[i].user_id,
+          title: dataSource[i].user_name,
+          status: dataSource[i].status,
+        }
+        data.status === 0 ?targetKeys.push(data): mockData.push(data) 
+      }
+    }
+    this.setState({
+      targetKeys,
+      mockData
+    })
+  }
+  filterOption = (inputValue, option) => option.title.indexOf(inputValue) > -1;
   render() {
     const columns = [
       {
@@ -137,12 +208,13 @@ export default class Permission extends Component {
       fixed: 'left',
       onChange: this.onSelectChange
     };
+    console.log(this.state.mockData,this.state.targetKeys, 'bbbbbb')
     return (
       <div>
         <Card>
           <Button type="primary" onClick={this.handleRole}>创建角色</Button>
           <Button onClick={this.handlePermission}>设置权限</Button>
-          <Button>用户授权</Button>
+          <Button onClick={this.handleUserAuth}>用户授权</Button>
         </Card>
         <Table bordered scroll={{ y: 450 }}
           pagination={this.state.pagination}
@@ -173,13 +245,33 @@ export default class Permission extends Component {
           onOk={this.handlePermEditSubmit}
           okText="确认"
           cancelText="取消">
-          <PermEditForm 
+          <PermEditForm
             detailInfo={this.state.detailInfo}
             menuInfo={this.state.menuInfo}
-            patchMenuInfo={(checkedKeys)=>{
+            patchMenuInfo={(checkedKeys) => {
               this.setState({ menuInfo: checkedKeys });
             }}
             wrappedComponentRef={(form) => { this.permform = form }}
+          />
+        </Modal>
+        <Modal title="用户授权"
+          visible={this.state.isUserAuth}
+          width={800}
+          onCancel={() => {
+            this.setState({
+              isUserAuth: false
+            })
+          }}
+          onOk={this.handleUserSubmit}
+          okText="确认"
+          cancelText="取消">
+          <Transfer
+            titles={['待选用户', '已选用户']}
+            showSearch
+            filterOption={this.filterOption}
+            dataSource={this.state.mockData}
+            targetKeys={this.state.targetKeys}
+            render={item => item.title}
           />
         </Modal>
       </div>
@@ -219,16 +311,16 @@ class RoleForm extends React.Component {
 RoleForm = Form.create({})(RoleForm);
 
 class PermEditForm extends React.Component {
-  onCheck = (checkedKeys)=>{
+  onCheck = (checkedKeys) => {
     this.props.patchMenuInfo(checkedKeys);
   }
-  renderTreeNodes = (data)=>{
-    return data.map(item=>{
-      if(item.children){
+  renderTreeNodes = (data) => {
+    return data.map(item => {
+      if (item.children) {
         return <TreeNode title={item.title} key={item.key} dataRef={item}>
           {this.renderTreeNodes(item.children)}
         </TreeNode>
-      }else{
+      } else {
         return <TreeNode {...item} />
       }
     })
@@ -259,7 +351,7 @@ class PermEditForm extends React.Component {
         <Tree
           checkable
           defaultExpandAll
-          onCheck={(checkedKeys)=>{
+          onCheck={(checkedKeys) => {
             this.onCheck(checkedKeys)
           }}
           checkedKeys={menu_info}

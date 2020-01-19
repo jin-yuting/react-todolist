@@ -1,21 +1,21 @@
 const menuList = [
   {
     title: '首页',
-    key: '/admin/home',
+    key: '/home',
     type: 'home'
   },
   {
     title: 'UI',
-    key: '/admin/ui',
+    key: '/ui',
     type: 'smile',
     children: [
       {
         title: '按钮',
-        key: '/admin/ui/buttons'
+        key: '/ui/buttons'
       },
       {
         title: '弹框',
-        key: '/admin/ui/modals'
+        key: '/ui/modals'
       }
     ]
   },
@@ -36,52 +36,52 @@ const menuList = [
   },
   {
     title: '表格',
-    key: '/admin/table',
+    key: '/table',
     type: 'table',
     children: [
       {
         title: '基础表格',
-        key: '/admin/table/basic'
+        key: '/table/basic'
       }
     ]
   },
   {
     title: '城市管理',
-    key: '/admin/table/city',
+    key: '/table/city',
     type: 'apartment'
   },
   {
     title: '订单管理',
-    key: '/admin/table/order',
+    key: '/table/order',
     type: 'profile'
   },
   {
     title: '富文本',
-    key: '/admin/draft',
+    key: '/draft',
     type: 'edit'
   },
   {
     title: '图表',
-    key: '/admin/echarts',
+    key: '/echarts',
     type: 'radar-chart',
     children: [
       {
         title: '柱状图',
-        key: '/admin/echarts/bar'
+        key: '/echarts/bar'
       },
       {
         title: '饼图',
-        key: '/admin/echarts/pie'
+        key: '/echarts/pie'
       },
       {
         title: '折线图',
-        key: '/admin/echarts/line'
+        key: '/echarts/line'
       }
     ]
   },
   {
     title: '权限管理',
-    key: '/admin/persimission',
+    key: '/persimission',
     type: 'user'
   },
 ]
