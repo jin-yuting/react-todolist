@@ -17,3 +17,6 @@ body {
   height: 100vh;
   overflow: auto;
 }
+.ant-breadcrumb > span:last-child{
+  color: rgb(255, 255, 255);
+}

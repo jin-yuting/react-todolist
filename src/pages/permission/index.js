@@ -32,7 +32,7 @@ export default class Permission extends Component {
       roleUserList: [
         {
           "status": 1,
-          "user_id": 1,
+          "user_id": 0,
           "user_name": '浅草'
         },
         {
@@ -42,22 +42,22 @@ export default class Permission extends Component {
         },
         {
           "status": 1,
-          "user_id": 1,
+          "user_id": 2,
           "user_name": '南山'
         },
         {
           "status": 0,
-          "user_id": 1,
+          "user_id": 3,
           "user_name": '嘉富'
         },
         {
           "status": 1,
-          "user_id": 1,
+          "user_id": 4,
           "user_name": '沈娟'
         },
         {
           "status": 1,
-          "user_id": 1,
+          "user_id": 5,
           "user_name": '叶杨'
         }
       ],
@@ -66,7 +66,8 @@ export default class Permission extends Component {
     }
   }
   componentDidMount() {
-    this.requestData()
+    this.requestData();
+    this.getAuthUserList(this.state.roleUserList);
   }
   //动态获取数据
   requestData = () => {
@@ -108,8 +109,7 @@ export default class Permission extends Component {
     // let roleInfo = this.formRef.props.form.getFieldsValue();
   }
   handlePermEditSubmit = () => {
-    let data = this.permform.props.form.getFieldsValue();
-    console.log(data)
+    // let data = this.permform.props.form.getFieldsValue();
   }
   handlePermission = () => {
     if (this.state.selectdItem.length) {
@@ -133,7 +133,6 @@ export default class Permission extends Component {
         isUserAuth: true,
         detailInfo: this.state.selectdItem[0],
       })
-      this.getAuthUserList(this.state.roleUserList)
     } else {
       Modal.info({
         title: '信息',
@@ -153,15 +152,27 @@ export default class Permission extends Component {
           title: dataSource[i].user_name,
           status: dataSource[i].status,
         }
-        data.status === 0 ?targetKeys.push(data): mockData.push(data) 
+        if(data.status === 0){
+          targetKeys.push(data.key)
+        }
+        mockData.push(data) 
       }
     }
-    this.setState({
-      targetKeys,
-      mockData
-    })
+    this.setState({ targetKeys, mockData })
   }
   filterOption = (inputValue, option) => option.title.indexOf(inputValue) > -1;
+  // 穿梭框选择
+  handleChange = (targetKeys )=>{
+    this.setState({ targetKeys });
+  }
+  // 用户授权提交
+  handleUserSubmit=()=>{
+    let data ={
+      userIds: this.state.targetKeys,
+      role_id: this.state.detailInfo.id
+    }
+    console.log(data)
+  }
   render() {
     const columns = [
       {
@@ -208,7 +219,6 @@ export default class Permission extends Component {
       fixed: 'left',
       onChange: this.onSelectChange
     };
-    console.log(this.state.mockData,this.state.targetKeys, 'bbbbbb')
     return (
       <div>
         <Card>
@@ -256,7 +266,7 @@ export default class Permission extends Component {
         </Modal>
         <Modal title="用户授权"
           visible={this.state.isUserAuth}
-          width={800}
+          width={600}
           onCancel={() => {
             this.setState({
               isUserAuth: false
@@ -267,11 +277,17 @@ export default class Permission extends Component {
           cancelText="取消">
           <Transfer
             titles={['待选用户', '已选用户']}
+            listStyle={{
+              width: 250,
+              height: 300,
+            }}
             showSearch
+            searchPlaceholder='输入用户名'
             filterOption={this.filterOption}
             dataSource={this.state.mockData}
             targetKeys={this.state.targetKeys}
             render={item => item.title}
+            onChange={this.handleChange}
           />
         </Modal>
       </div>
