@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import MenuConfig from './config/menuConfig';
 import Head from './pages/Head';
-import {connect} from 'react-redux';
+import { switchMenu } from './redux/action/index'
 // import Child1 from './components/Child1';
 // import Child2 from './components/Child2';
 import DocumentTitle from 'react-document-title';
@@ -15,13 +16,23 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collapsed: false
+      collapsed: false,
+      currentKey: '/home' // 菜单高亮
     }  
   }
   componentWillMount(){
     const menuTreeNode = this.renderMenu(MenuConfig);
+    let currentKey= window.location.hash.replace(/#|\?.*$/g,'')
     this.setState({
-      menuTreeNode
+      menuTreeNode,
+      currentKey
+    })
+  }
+  handleCurrentKey = ({item,key})=>{
+    const { dispatch } = this.props;
+    dispatch(switchMenu(item.props.children[0]))
+    this.setState({
+      currentKey: key
     })
   }
   onCollapse = collapsed => {
@@ -38,6 +49,7 @@ class App extends Component {
         );
       }
       return <Menu.Item key={item.key}>
+        {item.title}
           <NavLink to={item.key}> {item.type && <Icon type={item.type} />}<span>{item.title}</span></NavLink>
         </Menu.Item>
     });
@@ -48,7 +60,7 @@ class App extends Component {
         <Layout style={{ minHeight: '100vh' }}>
           <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
             <div className='home-title'>后台管理系统</div>
-            <Menu theme="dark" defaultSelectedKeys={['/admin/home']} mode="inline">
+            <Menu theme="dark" onClick={this.handleCurrentKey} selectedKeys={[this.state.currentKey]} mode="inline">
               {this.state.menuTreeNode}
             </Menu>
           </Sider>
@@ -67,8 +79,7 @@ class App extends Component {
     );
   }
 }
-// export default Home;
 export default connect(
-  (state,props)=>{ return Object.assign({},props,state)},
-  {}
+  // (state,props)=>{ return Object.assign({},props,state)},
+  // {}
 )(App);

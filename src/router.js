@@ -12,7 +12,12 @@ import BasicTable from './pages/table/basicTable';
 import CityTable from './pages/table/cityTable';
 import OrderTable from './pages/table/order/orderTable';
 import UserTable from './pages/user/index';
+import Draft from './pages/draft/index';
+import Permission from './pages/permission/index';
 import Detail from './pages/table/order/detail';
+import Bar from './pages/echarts/bar/index';
+import Pie from './pages/echarts/pie/index';
+import Line from './pages/echarts/line/index';
 import NotFound from './pages/NotFound';
 
 class Router extends Component {
@@ -21,18 +26,6 @@ class Router extends Component {
       <HashRouter>
         <App>
           <Switch>
-            <Route path="/admin" render={() =>
-              <Admin>
-                <Route path="/admin/home" component={Home} />
-                <Route path="/admin/ui/buttons" component={Buttons} />
-                <Route path="/admin/ui/modals" component={Modals} />
-                <Route path="/admin/table/basic" component={BasicTable} />
-                <Route path="/admin/table/city" component={CityTable} />
-                <Route path="/admin/table/order" component={OrderTable} />
-                <Route path="/admin/table/user" component={UserTable} />
-                <Route path="/404" component={NotFound} />
-              </Admin>
-            } />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/common" render={() =>
@@ -40,7 +33,26 @@ class Router extends Component {
                 <Route path="/common/order/detail/:userId" component={Detail} />
               </Common>
             } />
-            <Redirect form="/" to="/admin/home" />
+            <Route path="/" render={() =>
+              <Admin>
+                <Switch>
+                  <Route path="/home" component={Home} />
+                  <Route path="/ui/buttons" component={Buttons} />
+                  <Route path="/ui/modals" component={Modals} />
+                  <Route path="/table/basic" component={BasicTable} />
+                  <Route path="/table/city" component={CityTable} />
+                  <Route path="/table/order" component={OrderTable} />
+                  <Route path="/admin/table/user" component={UserTable} />
+                  <Route path="/draft" component={Draft} />
+                  <Route path="/persimission" component={Permission} />
+                  <Route path="/echarts/bar" component={Bar} />
+                  <Route path="/echarts/pie" component={Pie} />
+                  <Route path="/echarts/line" component={Line} />
+                  <Route path="/404" component={NotFound} />
+                  <Redirect to="/home" />
+                </Switch>
+              </Admin>
+            } />
           </Switch>
         </App>
       </HashRouter>

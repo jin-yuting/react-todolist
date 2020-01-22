@@ -7,7 +7,21 @@ export default class orderTable extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      dataSource: [], //table源数据
+      dataSource: [{
+        "id": 1,
+        "orderId": "T180455258",
+        "userId": 908352,
+        "bikeSn": "800116090",
+        "userName": "廖洋",
+        "mobile": "13347487156",
+        "distance": 2000,
+        "status": 5,
+        "totalFee": "123",
+        "totalTime": 4000,
+        "startTime": "1979-11-03 04:01:04",
+        "endTime": "1972-08-04 03:23:45",
+        "userPlay": 300
+      }], //table源数据
       page: 1,
       selectdItem: [], //选中行数据
       formList:[
